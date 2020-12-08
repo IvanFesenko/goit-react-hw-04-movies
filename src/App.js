@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import styles from './App.module.css';
 
-class App extends Component {
-  state = {};
+function App() {
+  const [query, setQuery] = useState('');
+  const [page, setPage] = useState(1);
 
-  render() {
-    return <div className={styles.container}></div>;
-  }
+  return <div className={styles.container}></div>;
 }
 
 export default App;
