@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import API from '../../services/TMDB';
 
-import FilmsList from '../FilmsList/FilmsList';
+import MoviesList from '../MoviesList/MoviesList';
 
-class Trandings extends Component {
+class Trending extends Component {
   state = {
     page: 1,
     movies: [],
@@ -13,14 +13,14 @@ class Trandings extends Component {
   };
 
   componentDidMount() {
-    this.getTrandings();
+    this.getTrending();
   }
 
-  getTrandings = async () => {
+  getTrending = async () => {
     const { page } = this.state;
 
     try {
-      const data = await API.getTrendings(page);
+      const data = await API.getTrending(page);
       this.setState({ movies: data.results, isLoading: false });
     } catch (error) {
       this.setState({
@@ -32,8 +32,8 @@ class Trandings extends Component {
 
   render() {
     const { movies } = this.state;
-    return <>{movies.length > 0 && <FilmsList movies={movies} />}</>;
+    return <>{movies.length > 0 && <MoviesList movies={movies} />}</>;
   }
 }
 
-export default Trandings;
+export default Trending;

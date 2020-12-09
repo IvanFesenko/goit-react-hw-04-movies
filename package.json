@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-02-feedback",
+  "name": "goit-react-hw-04-movies",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://IvanFesenko.github.io/goit-react-hw-04-movies/",
+  "homepage": "https://IvanFesenko.github.io/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",

@@ -1,4 +1,4 @@
-function FilmsList({ movies }) {
+function MoviesList({ movies }) {
   console.log(movies);
   return (
     <ul>
@@ -13,4 +13,4 @@ function FilmsList({ movies }) {
   );
 }
 
-export default FilmsList;
+export default MoviesList;

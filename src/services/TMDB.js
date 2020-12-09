@@ -16,7 +16,7 @@ const AXIOS = axios.create({
 // https://developers.themoviedb.org/3/movies/get-movie-credits - https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=<<api_key>>&language=en-US
 // https://developers.themoviedb.org/3/movies/get-movie-reviews - https://api.themoviedb.org/3/movie/{movie_id}/reviews?api_key=<<api_key>>&language=en-US&page=1
 
-async function getTrendings(page = 1) {
+async function getTrending(page = 1) {
   const response = await AXIOS.get(`trending/all/day?page=${page}`);
   const { data } = response;
   return data;
@@ -28,7 +28,7 @@ async function searchMovies(query, page = 1) {
   return data;
 }
 
-async function getMovieDetalis(id) {
+async function getMovieDetails(id) {
   const response = await AXIOS.get(`movie/${id}`);
   const { data } = response;
   return data;
@@ -47,9 +47,9 @@ async function getMovieReviews(id, page = 1) {
 }
 
 export default {
-  getTrendings,
+  getTrending,
   searchMovies,
-  getMovieDetalis,
+  getMovieDetails,
   getMovieCredits,
   getMovieReviews,
 };
