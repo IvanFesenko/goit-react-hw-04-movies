@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import s from './MoviesList.module.css';
 
@@ -9,9 +9,9 @@ function MoviesList(props) {
       {movies.map(movie => {
         return (
           <li key={movie.id} className={s.movie}>
-            <Link to={`/movies/:${movie.id}`}>
+            <NavLink to={`/movies/${movie.id}`} className={s.movie}>
               {movie.title ? movie.title : movie.original_name}
-            </Link>
+            </NavLink>
           </li>
         );
       })}

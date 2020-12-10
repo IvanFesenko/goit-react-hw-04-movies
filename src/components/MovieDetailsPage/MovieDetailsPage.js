@@ -5,17 +5,20 @@ import s from './MovieDetailsPage.module.css';
 
 class MoviesDetailsPage extends Component {
   state = {
-    movie: null,
+    movie: {},
   };
   async componentDidMount() {
     const { movieId } = this.props.match.params;
     try {
-      // const data = await API.getMovieDetails(id);
+      const data = await API.getMovieDetails(movieId);
+      console.log(data);
+      this.setState({ movie: data });
     } catch (error) {}
   }
   render() {
+    const { movie } = this.state;
     const { movieId } = this.props.match.params;
-    console.log(this.props);
+
     return <div>Movie page - {movieId}</div>;
   }
 }
