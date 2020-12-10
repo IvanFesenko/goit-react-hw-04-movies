@@ -1,0 +1,13 @@
+.movie {
+  cursor: pointer;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.movie:hover {
+  color: firebrick;
+}
+
+.active {
+  color: firebrick;
+}

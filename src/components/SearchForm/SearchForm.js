@@ -41,7 +41,4 @@ class SearchForm extends Component {
   }
 }
 
-// function MoviesSearch(params) {
-//   return <div></div>;
-// }
 export default SearchForm;

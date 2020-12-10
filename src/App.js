@@ -5,6 +5,7 @@ import Container from './components/Container/Container';
 import Header from './components/Header/Header';
 import Trending from './components/Trending/Trending';
 import MoviesSearch from './components/MoviesSearch/MoviesSearch';
+import MovieDetailsPage from './components/MovieDetailsPage/MovieDetailsPage';
 import NotFound from './components/NotFound/NotFound';
 
 class App extends Component {
@@ -14,8 +15,9 @@ class App extends Component {
         <Header />
         <Container>
           <Switch>
-            <Route path="/" exact component={Trending} />
-            <Route path="/movies" component={MoviesSearch} />
+            <Route exact path="/" component={Trending} />
+            <Route exact path="/movies" component={MoviesSearch} />
+            <Route path="/movies/:movieId" component={MovieDetailsPage} />
             <Route component={NotFound} />
           </Switch>
         </Container>

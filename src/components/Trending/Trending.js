@@ -13,6 +13,7 @@ class Trending extends Component {
   };
 
   componentDidMount() {
+    console.log(this.props);
     this.getTrending();
   }
 

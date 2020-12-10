@@ -16,6 +16,7 @@ class MoviesSearch extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
+    console.log(this.props);
     const { query, page } = this.state;
     if (prevState.query !== query) {
       this.getData();
