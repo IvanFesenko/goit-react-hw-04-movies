@@ -1,6 +1,6 @@
 export default {
   idle: 'idle',
   pending: 'pending',
-  fullfiled: 'fullfiled',
+  fulfilled: 'fulfilled',
   rejected: 'rejected',
 };

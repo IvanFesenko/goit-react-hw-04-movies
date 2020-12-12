@@ -18,7 +18,7 @@ class MoviesDetailsPage extends Component {
     const { movieId } = this.props.match.params;
     try {
       const data = await API.getMovieDetails(movieId);
-      this.setState({ movie: data, status: STATUS.fullfiled });
+      this.setState({ movie: data, status: STATUS.fulfilled });
     } catch (error) {
       this.setState({ status: STATUS.rejected });
     }
@@ -38,7 +38,7 @@ class MoviesDetailsPage extends Component {
       return <div>Preloader</div>;
     }
 
-    if (status === STATUS.fullfiled) {
+    if (status === STATUS.fulfilled) {
       return (
         <div className={s.wrapper}>
           <div className={s.poster}>
