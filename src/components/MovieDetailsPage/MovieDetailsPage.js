@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useRouteMatch, Route, NavLink } from 'react-router-dom';
 
 import API from '../../services/TMDB';
 import STATUS from '../../services/Status';
@@ -8,6 +8,8 @@ import noImage from '../../images/noImage.png';
 
 import Preloader from '../Preloader/Preloader';
 import NotFound from '../NotFound/NotFound';
+import Cast from './Cast/Cast';
+import Reviews from './Reviews/Reviews';
 
 import s from './MovieDetailsPage.module.css';
 
@@ -15,6 +17,7 @@ function MoviesDetailsPage() {
   const [movie, setMovie] = useState({});
   const [status, setStatus] = useState(STATUS.pending);
   const { movieId } = useParams();
+  const { url } = useRouteMatch();
 
   useEffect(() => {
     const getData = async () => {
@@ -35,28 +38,35 @@ function MoviesDetailsPage() {
   }
   if (status === STATUS.fulfilled) {
     return (
-      <div className={s.wrapper}>
-        <div className={s.poster}>
-          <img
-            src={
-              movie.poster_path
-                ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                : noImage
-            }
-            alt={movie.title && movie.original_name}
-            width="300"
-          />
+      <>
+        <div className={s.wrapper}>
+          <div className={s.poster}>
+            <img
+              src={
+                movie.poster_path
+                  ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                  : noImage
+              }
+              alt={movie.title && movie.original_name}
+              width="300"
+            />
+          </div>
+          <div>
+            <h2>{movie.title ? movie.title : movie.original_name}</h2>
+            <p>Overview:</p>
+            <p>{movie.overview}</p>
+            <p>Release: {movie.release_date}</p>
+            <NavLink to={`${url}/cast`}>Cast</NavLink>
+            <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+          </div>
         </div>
-        <div>
-          <h2>{movie.title ? movie.title : movie.original_name}</h2>
-          <p>Overview:</p>
-          <p>{movie.overview}</p>
-          <p>Release: {movie.release_date}</p>
-          <a href={movie.homepage} target="_blank" rel="noopener noreferrer">
-            Homepage
-          </a>
-        </div>
-      </div>
+        <Route path={`${url}/cast`}>
+          <Cast movieId={movieId} />
+        </Route>
+        <Route path={`${url}/reviews`}>
+          <Reviews movieId={movieId} />
+        </Route>
+      </>
     );
   }
   return <NotFound />;

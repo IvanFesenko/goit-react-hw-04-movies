@@ -81,7 +81,7 @@ function MoviesSearch() {
     return (
       <>
         <SearchForm onSearch={onSearch} />
-        <NotFound />
+        <NotFound text={'Nothing was found, please try again'} />
       </>
     );
   }
