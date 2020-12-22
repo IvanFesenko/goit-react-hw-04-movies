@@ -1,40 +1,34 @@
-import React, { Component } from 'react';
+import { useState, useEffect } from 'react';
 
 import API from '../../services/TMDB';
+import STATUS from '../../services/Status';
 
 import MoviesList from '../MoviesList/MoviesList';
+import NotFound from '../NotFound/NotFound';
 
-class Trending extends Component {
-  state = {
-    page: 1,
-    movies: [],
-    isLoading: true,
-    error: false,
-  };
+function Trending() {
+  const [movies, setMovies] = useState([]);
+  const [status, setStatus] = useState(STATUS.pending);
 
-  componentDidMount() {
-    console.log(this.props);
-    this.getTrending();
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const { results } = await API.getTrending();
+        setMovies(results);
+        setStatus(STATUS.fulfilled);
+      } catch (error) {
+        console.error(error);
+        setStatus(STATUS.rejected);
+      }
+    };
+
+    getData();
+  }, []);
+
+  if (status === STATUS.rejected) {
+    return <NotFound />;
   }
-
-  getTrending = async () => {
-    const { page } = this.state;
-
-    try {
-      const data = await API.getTrending(page);
-      this.setState({ movies: data.results, isLoading: false });
-    } catch (error) {
-      this.setState({
-        error: true,
-        isLoading: false,
-      });
-    }
-  };
-
-  render() {
-    const { movies } = this.state;
-    return <>{movies.length > 0 && <MoviesList movies={movies} />}</>;
-  }
+  return <>{status === STATUS.fulfilled && <MoviesList movies={movies} />}</>;
 }
 
 export default Trending;

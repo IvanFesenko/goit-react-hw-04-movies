@@ -2,8 +2,7 @@ import { NavLink } from 'react-router-dom';
 
 import s from './MoviesList.module.css';
 
-function MoviesList(props) {
-  const { movies } = props;
+function MoviesList({ movies }) {
   return (
     <ul>
       {movies.map(movie => {

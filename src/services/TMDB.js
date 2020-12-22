@@ -5,6 +5,7 @@ const AXIOS = axios.create({
   params: {
     api_key: 'a4b311a4af0456b18de9111800fddea7',
     language: 'en-US',
+    page: '1',
   },
 });
 
@@ -16,14 +17,14 @@ const AXIOS = axios.create({
 // https://developers.themoviedb.org/3/movies/get-movie-credits - https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=<<api_key>>&language=en-US
 // https://developers.themoviedb.org/3/movies/get-movie-reviews - https://api.themoviedb.org/3/movie/{movie_id}/reviews?api_key=<<api_key>>&language=en-US&page=1
 
-async function getTrending(page = 1) {
-  const response = await AXIOS.get(`trending/all/day?page=${page}`);
+async function getTrending() {
+  const response = await AXIOS.get(`trending/all/day?`);
   const { data } = response;
   return data;
 }
 
-async function searchMovies(query, page = 1) {
-  const response = await AXIOS.get(`search/movie?query=${query}&page=${page}`);
+async function searchMovies(query) {
+  const response = await AXIOS.get(`search/movie?query=${query}`);
   const { data } = response;
   return data;
 }
@@ -40,8 +41,8 @@ async function getMovieCredits(id) {
   return data;
 }
 
-async function getMovieReviews(id, page = 1) {
-  const response = await AXIOS.get(`movie/${id}/reviews?page=${page}`);
+async function getMovieReviews(id) {
+  const response = await AXIOS.get(`movie/${id}/reviews?`);
   const { data } = response;
   return data;
 }

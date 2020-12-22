@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { useState, useEffect } from 'react';
 
 import API from '../../services/TMDB';
 
@@ -6,57 +6,37 @@ import API from '../../services/TMDB';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesList from '../MoviesList/MoviesList';
 
-class MoviesSearch extends Component {
-  state = {
-    page: 1,
-    query: '',
-    movies: [],
-    isLoading: false,
-    error: false,
-  };
+function MoviesSearch() {
+  const [query, setQuery] = useState('');
+  const [movies, setMovies] = useState([]);
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log(this.props);
-    const { query, page } = this.state;
-    if (prevState.query !== query) {
-      this.getData();
+  useEffect(() => {
+    if (!query.trim()) {
+      return;
     }
-  }
-
-  getData = async () => {
-    const { query, page } = this.state;
-    try {
-      const data = await API.searchMovies(query, page);
-      if (data.results.length > 0) {
-        this.setState({ movies: data.results, isLoading: false });
+    const getData = async () => {
+      try {
+        const { results } = await API.searchMovies(query);
+        if (results.length > 0) {
+          setMovies(results);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      this.setState({
-        error: true,
-        isLoading: false,
-      });
-    }
+    };
+    getData();
+  }, [query]);
+
+  const onSearch = query => {
+    setQuery(query);
   };
 
-  onSearch = query => {
-    this.setState({
-      page: 1,
-      query: query,
-      movies: [],
-      isLoading: true,
-      error: false,
-    });
-  };
-
-  render() {
-    const { movies } = this.state;
-    return (
-      <>
-        <SearchForm onSearch={this.onSearch} />
-        {movies.length > 0 && <MoviesList movies={movies} />}
-      </>
-    );
-  }
+  return (
+    <>
+      <SearchForm onSearch={onSearch} />
+      {movies.length > 0 && <MoviesList movies={movies} />}
+    </>
+  );
 }
 
 export default MoviesSearch;
