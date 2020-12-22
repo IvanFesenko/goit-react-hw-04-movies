@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
 import API from '../../services/TMDB';
 import STATUS from '../../services/Status';
 
@@ -8,64 +10,55 @@ import NotFound from '../NotFound/NotFound';
 
 import s from './MovieDetailsPage.module.css';
 
-class MoviesDetailsPage extends Component {
-  state = {
-    movie: {},
-    status: STATUS.pending,
-  };
+function MoviesDetailsPage() {
+  const [movie, setMovie] = useState({});
+  const [status, setStatus] = useState(STATUS.pending);
+  const { movieId } = useParams();
 
-  async componentDidMount() {
-    const { movieId } = this.props.match.params;
-    try {
-      const data = await API.getMovieDetails(movieId);
-      this.setState({ movie: data, status: STATUS.fulfilled });
-    } catch (error) {
-      this.setState({ status: STATUS.rejected });
-    }
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const data = await API.getMovieDetails(movieId);
+        setMovie(data);
+        setStatus(STATUS.fulfilled);
+      } catch (error) {
+        setStatus(STATUS.rejected);
+      }
+    };
+
+    getData();
+  }, [movieId]);
+
+  if (status === STATUS.pending) {
+    return <div>Preloader</div>;
   }
-  render() {
-    const {
-      poster_path,
-      title,
-      original_name,
-      overview,
-      release_date,
-      homepage,
-    } = this.state.movie;
-    const { status } = this.state;
-
-    if (status === STATUS.pending) {
-      return <div>Preloader</div>;
-    }
-
-    if (status === STATUS.fulfilled) {
-      return (
-        <div className={s.wrapper}>
-          <div className={s.poster}>
-            <img
-              src={
-                poster_path
-                  ? `https://image.tmdb.org/t/p/w500/${poster_path}`
-                  : noImage
-              }
-              alt={title && original_name}
-              width="300"
-            />
-          </div>
-          <div>
-            <h2>{title ? title : original_name}</h2>
-            <p>Overview:</p>
-            <p>{overview}</p>
-            <p>Release: {release_date}</p>
-            <a href={homepage} target="_blank" rel="noopener noreferrer">
-              Homepage
-            </a>
-          </div>
+  if (status === STATUS.fulfilled) {
+    return (
+      <div className={s.wrapper}>
+        <div className={s.poster}>
+          <img
+            src={
+              movie.poster_path
+                ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                : noImage
+            }
+            alt={movie.title && movie.original_name}
+            width="300"
+          />
         </div>
-      );
-    }
-    return <NotFound />;
+        <div>
+          <h2>{movie.title ? movie.title : movie.original_name}</h2>
+          <p>Overview:</p>
+          <p>{movie.overview}</p>
+          <p>Release: {movie.release_date}</p>
+          <a href={movie.homepage} target="_blank" rel="noopener noreferrer">
+            Homepage
+          </a>
+        </div>
+      </div>
+    );
   }
+  return <NotFound />;
 }
 
 export default MoviesDetailsPage;
