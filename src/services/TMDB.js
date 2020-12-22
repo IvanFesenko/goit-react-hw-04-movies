@@ -5,7 +5,6 @@ const AXIOS = axios.create({
   params: {
     api_key: 'a4b311a4af0456b18de9111800fddea7',
     language: 'en-US',
-    page: '1',
   },
 });
 
@@ -17,14 +16,14 @@ const AXIOS = axios.create({
 // https://developers.themoviedb.org/3/movies/get-movie-credits - https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=<<api_key>>&language=en-US
 // https://developers.themoviedb.org/3/movies/get-movie-reviews - https://api.themoviedb.org/3/movie/{movie_id}/reviews?api_key=<<api_key>>&language=en-US&page=1
 
-async function getTrending() {
-  const response = await AXIOS.get(`trending/all/day?`);
+async function getTrending(page) {
+  const response = await AXIOS.get(`trending/all/day?page=${page}`);
   const { data } = response;
   return data;
 }
 
-async function searchMovies(query) {
-  const response = await AXIOS.get(`search/movie?query=${query}`);
+async function searchMovies(query, page) {
+  const response = await AXIOS.get(`search/movie?query=${query}&page=${page}`);
   const { data } = response;
   return data;
 }
