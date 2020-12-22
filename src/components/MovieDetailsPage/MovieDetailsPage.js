@@ -6,6 +6,7 @@ import STATUS from '../../services/Status';
 
 import noImage from '../../images/noImage.png';
 
+import Preloader from '../Preloader/Preloader';
 import NotFound from '../NotFound/NotFound';
 
 import s from './MovieDetailsPage.module.css';
@@ -30,7 +31,7 @@ function MoviesDetailsPage() {
   }, [movieId]);
 
   if (status === STATUS.pending) {
-    return <div>Preloader</div>;
+    return <Preloader />;
   }
   if (status === STATUS.fulfilled) {
     return (
