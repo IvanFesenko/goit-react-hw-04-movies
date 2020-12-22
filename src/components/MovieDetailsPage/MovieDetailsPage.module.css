@@ -5,3 +5,23 @@
 .poster {
   margin-right: 30px;
 }
+
+.linksWrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.link {
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  color: #000;
+}
+
+.linkActive {
+  color: firebrick;
+}
+
+.link:hover {
+  color: firebrick;
+}

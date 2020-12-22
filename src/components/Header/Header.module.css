@@ -26,6 +26,10 @@
   color: #000;
 }
 
+.link:hover {
+  color: firebrick;
+}
+
 .linkActive {
   color: firebrick;
 }

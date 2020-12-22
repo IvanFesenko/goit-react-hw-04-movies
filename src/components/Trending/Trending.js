@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import 'rc-pagination/assets/index.css';
 import rclocale from 'rc-pagination/lib/locale/en_US';
 
+import s from './Trending.module.css';
+
 import API from '../../services/TMDB';
 import STATUS from '../../services/Status';
 
@@ -44,13 +46,15 @@ function Trending() {
     return (
       <>
         <MoviesList movies={movies} />
-        <Pagination
-          onChange={onPageChange}
-          current={page}
-          total={totalPages}
-          locale={rclocale}
-          pageSize={1}
-        />
+        <div className={s.wrapper}>
+          <Pagination
+            onChange={onPageChange}
+            current={page}
+            total={totalPages}
+            locale={rclocale}
+            pageSize={1}
+          />
+        </div>
       </>
     );
   }

@@ -50,14 +50,28 @@ function MoviesDetailsPage() {
               alt={movie.title && movie.original_name}
               width="300"
             />
+            <div className={s.linksWrapper}>
+              <NavLink
+                to={`${url}/cast`}
+                className={s.link}
+                activeClassName={s.linkActive}
+              >
+                Cast
+              </NavLink>
+              <NavLink
+                to={`${url}/reviews`}
+                className={s.link}
+                activeClassName={s.linkActive}
+              >
+                Reviews
+              </NavLink>
+            </div>
           </div>
           <div>
             <h2>{movie.title ? movie.title : movie.original_name}</h2>
             <p>Overview:</p>
             <p>{movie.overview}</p>
             <p>Release: {movie.release_date}</p>
-            <NavLink to={`${url}/cast`}>Cast</NavLink>
-            <NavLink to={`${url}/reviews`}>Reviews</NavLink>
           </div>
         </div>
         <Route path={`${url}/cast`}>

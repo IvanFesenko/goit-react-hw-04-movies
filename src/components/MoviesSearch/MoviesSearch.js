@@ -5,7 +5,7 @@ import rclocale from 'rc-pagination/lib/locale/en_US';
 import API from '../../services/TMDB';
 import STATUS from '../../services/Status';
 
-// import s from './MoviesSearch.module.css';
+import s from './MoviesSearch.module.css';
 
 import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
@@ -66,13 +66,15 @@ function MoviesSearch() {
       <>
         <SearchForm onSearch={onSearch} />
         <MoviesList movies={movies} />
-        <Pagination
-          onChange={onPageChange}
-          current={page}
-          total={totalPages}
-          locale={rclocale}
-          pageSize={1}
-        />
+        <div className={s.wrapper}>
+          <Pagination
+            onChange={onPageChange}
+            current={page}
+            total={totalPages}
+            locale={rclocale}
+            pageSize={1}
+          />
+        </div>
       </>
     );
   }
