@@ -46,10 +46,12 @@ async function getMovieReviews(id) {
   return data;
 }
 
-export default {
+const API = {
   getTrending,
   searchMovies,
   getMovieDetails,
   getMovieCredits,
   getMovieReviews,
 };
+
+export default API;

@@ -36,10 +36,10 @@ export default function Cast({ movieId }) {
     <div>
       {reviews.length > 0 ? (
         <ul>
-          {reviews.map(review => (
-            <li key={review.id}>
-              <p>{review.author}</p>
-              <p>{review.content}</p>
+          {reviews.map(({ id, author, content }) => (
+            <li key={id}>
+              <p>{author}</p>
+              <p>{content}</p>
             </li>
           ))}
         </ul>

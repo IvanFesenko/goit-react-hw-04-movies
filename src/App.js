@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Container from './components/Container/Container';
@@ -8,22 +7,20 @@ import MoviesSearch from './components/MoviesSearch/MoviesSearch';
 import MovieDetailsPage from './components/MovieDetailsPage/MovieDetailsPage';
 import NotFound from './components/NotFound/NotFound';
 
-class App extends Component {
-  render() {
-    return (
-      <>
-        <Header />
-        <Container>
-          <Switch>
-            <Route exact path="/" component={Trending} />
-            <Route exact path="/movies" component={MoviesSearch} />
-            <Route path="/movies/:movieId" component={MovieDetailsPage} />
-            <Route component={NotFound} />
-          </Switch>
-        </Container>
-      </>
-    );
-  }
+function App() {
+  return (
+    <>
+      <Header />
+      <Container>
+        <Switch>
+          <Route exact path="/" component={Trending} />
+          <Route exact path="/movies" component={MoviesSearch} />
+          <Route path="/movies/:movieId" component={MovieDetailsPage} />
+          <Route component={NotFound} />
+        </Switch>
+      </Container>
+    </>
+  );
 }
 
 export default App;

@@ -7,20 +7,20 @@ import s from './MoviesList.module.css';
 function MoviesList({ movies }) {
   return (
     <ul className={s.list}>
-      {movies.map(movie => {
+      {movies.map(({ id, title, poster_path, original_name }) => {
         return (
-          <li key={movie.id} className={s.movie}>
-            <NavLink to={`/movies/${movie.id}`} className={s.movie}>
+          <li key={id} className={s.movie}>
+            <NavLink to={`/movies/${id}`} className={s.movie}>
               <img
                 src={
-                  movie.poster_path
-                    ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                  poster_path
+                    ? `https://image.tmdb.org/t/p/w500/${poster_path}`
                     : noImage
                 }
                 alt=""
                 className={s.poster}
               />
-              <p>{movie.title ? movie.title : movie.original_name}</p>
+              <p>{title ? title : original_name}</p>
             </NavLink>
           </li>
         );
