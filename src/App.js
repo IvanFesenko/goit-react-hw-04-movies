@@ -5,11 +5,6 @@ import Preloader from './components/Preloader/Preloader';
 import Container from './components/Container/Container';
 import Header from './components/Header/Header';
 
-// import Trending from './components/Trending/Trending';
-// import MoviesSearch from './components/MoviesSearch/MoviesSearch';
-// import MovieDetailsPage from './components/MovieDetailsPage/MovieDetailsPage';
-// import NotFound from './components/NotFound/NotFound';
-
 const Trending = lazy(() =>
   import(
     './components/Trending/Trending.js' /* webpackChunkName: "trending" */
