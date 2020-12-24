@@ -34,6 +34,11 @@ function Trending() {
       } catch (error) {
         console.error(error);
         setStatus(STATUS.rejected);
+      } finally {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
       }
     };
     getData();

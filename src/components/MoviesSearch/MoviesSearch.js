@@ -43,6 +43,11 @@ function MoviesSearch() {
       } catch (error) {
         console.log(error);
         setStatus(STATUS.rejected);
+      } finally {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
       }
     };
     getData();
