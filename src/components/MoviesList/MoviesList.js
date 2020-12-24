@@ -18,6 +18,8 @@ function MoviesList({ movies }) {
                     : noImage
                 }
                 alt=""
+                width="200"
+                height="300"
                 className={s.poster}
               />
               <p>{title ? title : original_name}</p>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import 'rc-pagination/assets/index.css';
-import rclocale from 'rc-pagination/lib/locale/en_US';
+import { useHistory, useLocation } from 'react-router-dom';
+import Pagination from '@material-ui/lab/Pagination';
 
 import API from '../../services/TMDB';
 import STATUS from '../../services/Status';
@@ -11,14 +11,18 @@ import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 import MoviesList from '../MoviesList/MoviesList';
 import NotFound from '../NotFound/NotFound';
-import Pagination from 'rc-pagination';
 
 function MoviesSearch() {
+  const history = useHistory();
+  const location = useLocation();
   const [status, setStatus] = useState(STATUS.idle);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(
+    new URLSearchParams(location.search).get('query') ?? '',
+  );
   const [movies, setMovies] = useState([]);
-  const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+
+  const page = new URLSearchParams(location.search).get('page') ?? 1;
 
   useEffect(() => {
     if (!query.trim()) {
@@ -48,8 +52,8 @@ function MoviesSearch() {
     setQuery(query);
   };
 
-  const onPageChange = value => {
-    setPage(value);
+  const onPageChange = (event, page) => {
+    history.push({ ...location, search: `query=${query}&page=${page}` });
   };
 
   if (status === STATUS.pending) {
@@ -68,11 +72,11 @@ function MoviesSearch() {
         <MoviesList movies={movies} />
         <div className={s.wrapper}>
           <Pagination
+            count={totalPages}
             onChange={onPageChange}
-            current={page}
-            total={totalPages}
-            locale={rclocale}
-            pageSize={1}
+            page={Number(page)}
+            showFirstButton
+            showLastButton
           />
         </div>
       </>

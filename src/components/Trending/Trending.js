@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
-import 'rc-pagination/assets/index.css';
-import rclocale from 'rc-pagination/lib/locale/en_US';
+import { useHistory, useLocation } from 'react-router-dom';
+import Pagination from '@material-ui/lab/Pagination';
+
+// import 'rc-pagination/assets/index.css';
+// import rclocale from 'rc-pagination/lib/locale/en_US';
 
 import s from './Trending.module.css';
 
@@ -10,13 +13,16 @@ import STATUS from '../../services/Status';
 import Preloader from '../Preloader/Preloader';
 import MoviesList from '../MoviesList/MoviesList';
 import NotFound from '../NotFound/NotFound';
-import Pagination from 'rc-pagination';
+// import Pagination from 'rc-pagination';
 
 function Trending() {
+  const history = useHistory();
+  const location = useLocation();
   const [status, setStatus] = useState(STATUS.pending);
   const [movies, setMovies] = useState([]);
-  const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+
+  const page = new URLSearchParams(location.search).get('page') ?? 1;
 
   useEffect(() => {
     const getData = async () => {
@@ -30,12 +36,19 @@ function Trending() {
         setStatus(STATUS.rejected);
       }
     };
-
     getData();
   }, [page]);
 
-  const onPageChange = value => {
-    setPage(value);
+  // useEffect(() => {
+  //   if (location.search !== '') {
+  //     return;
+  //   }
+
+  //   history.push({ ...location, search: `page=1` });
+  // }, [history, location]);
+
+  const onPageChange = (event, page) => {
+    history.push({ ...location, search: `page=${page}` });
   };
 
   if (status === STATUS.pending) {
@@ -48,11 +61,11 @@ function Trending() {
         <MoviesList movies={movies} />
         <div className={s.wrapper}>
           <Pagination
+            count={totalPages}
             onChange={onPageChange}
-            current={page}
-            total={totalPages}
-            locale={rclocale}
-            pageSize={1}
+            page={Number(page)}
+            showFirstButton
+            showLastButton
           />
         </div>
       </>
