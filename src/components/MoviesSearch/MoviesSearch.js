@@ -55,7 +55,7 @@ function MoviesSearch() {
 
   const onSearch = query => {
     setQuery(query);
-    history.push({ ...location, search: `query=${query}&page=${page}` });
+    history.push({ ...location, search: `query=${query}&page=1` });
   };
 
   const onPageChange = (event, page) => {
